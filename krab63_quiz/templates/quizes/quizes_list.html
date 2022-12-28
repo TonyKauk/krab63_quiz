@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-11 p-5">
+    
+      {% if quizes %}
+      <ul class="list-group">
+        {% for quiz in quizes %}
+          <li class="list-group-item">
+            <p class="h4">
+              <a class="nav-link"
+                href="{% url 'quizes:quiz_welcome' quiz_id=quiz.id %}">{{ quiz.name }}
+              </a>
+            </p>
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% else %}
+        Пока ни одного теста (((
+      {% endif %}
+
+    </div>
+  </div>
+{% endblock %}

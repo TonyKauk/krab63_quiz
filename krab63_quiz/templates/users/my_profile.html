@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <p class="h3">Результаты тестов пользователя {{ user.username }}</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Название теста</th>
+        <th scope="col">Всего вопросов</th>
+        <th scope="col">Правильных ответов</th>
+        <th scope="col">Рейтинг в %</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for result in results%}
+        <tr>
+          <td>{{ result.quiz.name }}</td>
+          <td>{{ result.total_questions_count }}</td>
+          <td>{{ result.correct_answers_count }}</td>
+          <td>{{ result.correct_answer_ratio }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
