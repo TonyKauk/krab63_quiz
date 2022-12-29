@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-m*iq^f3!ol92mm@ristqq-gwyraeu)l_v-opg18nxfnt+%q!3='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -132,3 +132,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'users:login'
 
 LOGIN_REDIRECT_URL = 'quizes:quizes_list'
+
+try:
+    from .settings_local import *
+except ImportError as e:
+    pass
