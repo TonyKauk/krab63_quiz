@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
-from quizes.forms import QuestionResultForm
-from quizes.models import Question, QuestionResult, Quiz, QuizResult
+
+from .forms import QuestionResultForm
+from .models import Question, QuestionResult, Quiz, QuizResult
 
 
 class QuizListView(generic.ListView):
@@ -11,7 +12,6 @@ class QuizListView(generic.ListView):
     context_object_name = 'quizes'
 
     def get_queryset(self):
-        """Возвращает все Тесты."""
         return Quiz.objects.all()
 
 
