@@ -43,6 +43,7 @@ pip install -r requirements.txt
 Выполнить миграции:
 
 ```
+cd krab63_quiz
 python3 manage.py migrate
 ```
 
