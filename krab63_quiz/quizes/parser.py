@@ -1,5 +1,3 @@
-from quizes.models import Quiz, Question, Option
-
 import re
 
 import requests
