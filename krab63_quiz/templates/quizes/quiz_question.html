@@ -26,6 +26,18 @@
         </p>
       </form>
 
+      <div class="col-md-6 offset-md-5">
+        <a class="btn btn-secondary"
+          href="{% url 'quizes:correct_answers' quiz_id=quiz.id question_id=question.id %}"
+          role="button">Получить ответы</a>
+      </div>
+
+      {% if request.session.answers %}
+        {% for answer in request.session.answers %}
+          {{ answer }}
+        {% endfor %}
+      {% endif %}
+
     </div>
   </div>
 {% endblock %}

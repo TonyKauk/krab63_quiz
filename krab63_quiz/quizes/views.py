@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
+from django.urls import reverse
+import requests
 
-from .forms import QuestionResultForm
-from .models import Question, QuestionResult, Quiz, QuizResult
+from quizes.forms import QuestionResultForm
+from quizes.models import Question, QuestionResult, Quiz, QuizResult
 
 
 class QuizListView(generic.ListView):
@@ -90,6 +92,29 @@ def quiz_question(request, quiz_id, question_id):
     question_result_form = QuestionResultForm(instance=question_result)
     context['question_result_form'] = question_result_form
     return render(request, template, context)
+
+
+@login_required
+def get_correct_answers(request, quiz_id, question_id):
+    """Функция для запроса ответов на вопрос у внешнего API и вызова страницы
+    с вопросом с проставленными ответами.
+    """
+    url = reverse(
+        'api:correct_answers', kwargs={'question_id': question_id},
+    )
+    uri = request.build_absolute_uri(url)
+    api_response = requests.get(uri)
+
+    answers = []
+    for answer_json in api_response.json():
+        answer = answer_json['text']
+        answers.append(answer)
+
+    request.session['answers'] = answers
+    return redirect(
+        'quizes:quiz_question', quiz_id=quiz_id,
+        question_id=question_id,
+    )
 
 
 @login_required
