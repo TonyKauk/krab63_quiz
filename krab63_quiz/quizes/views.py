@@ -1,3 +1,5 @@
+import json
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
@@ -77,6 +79,8 @@ def quiz_question(request, quiz_id, question_id):
             context['question_result_form'] = question_result_form
             return render(request, template, context)
 
+        if 'answers' in request.session:
+            del request.session['answers']
         next_question = Question.objects.filter(id__gt=question_id).first()
         if next_question is None:
             quiz_result.is_finished = True
@@ -110,6 +114,7 @@ def get_correct_answers(request, quiz_id, question_id):
         answer = answer_json['text']
         answers.append(answer)
 
+    # request.session['answers'] = json.dumps(answers)
     request.session['answers'] = answers
     return redirect(
         'quizes:quiz_question', quiz_id=quiz_id,
