@@ -7,7 +7,7 @@ from quizes.models import Quiz, Question, Option
 
 
 def get_soup(url):
-    """Срздает объект класса BeautifulSoup со страницей, которая доступной по
+    """Создает объект класса BeautifulSoup со страницей, которая доступной по
     указанному URL.
     """
     page = requests.get(url)
