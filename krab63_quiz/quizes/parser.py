@@ -1,5 +1,4 @@
 import random
-from sys import exit
 
 import requests
 from bs4 import BeautifulSoup

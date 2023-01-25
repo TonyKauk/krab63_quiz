@@ -60,11 +60,17 @@ python3 manage.py migrate
 python3 manage.py runserver
 ```
 
-Для запуска Celery, который будет по расписанию (каждую минуту) парсить тесты:
+Для запуска Celery, который будет по расписанию (каждую минуту) парсить тесты
+нужно в отдельных вкладуках терминала из папаки с файлом settings.py
+выполнить команды:
 
 ```
 redis-server
+```
+```
 python3 -m celery -A krab63_quiz worker -l info
+```
+```
 python3 -m celery -A krab63_quiz beat -l info
 ```
 

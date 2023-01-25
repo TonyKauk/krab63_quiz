@@ -1,5 +1,3 @@
-import json
-
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import generic
@@ -114,7 +112,6 @@ def get_correct_answers(request, quiz_id, question_id):
         answer = answer_json['text']
         answers.append(answer)
 
-    # request.session['answers'] = json.dumps(answers)
     request.session['answers'] = answers
     return redirect(
         'quizes:quiz_question', quiz_id=quiz_id,
