@@ -28,86 +28,18 @@
         </p>
       </form>
 
-
-
-      <form
-      action="/19/186"
-      method="post">
-      <input type="hidden" name="csrfmiddlewaretoken" value="8nYQkky5TSF4MtpGzAm8vnQVYvtogaudVrU7k1keFaxDGPOKkcfbQwzZRM8yZMw4">
-
-      <div class="form-group form-check">
-        <label for="answers">Варианты ответов на вопрос:</label>
-        <div id="id_answers"><div>
-          <label for="id_answers_0"><input type="checkbox" name="answers" value=" (А) Новгородская Русь" id="id_answers_0">
-            (А) Новгородская Русь
-          </label>
-        </div>
-        
-        <div>
-          <label for="id_answers_1"><input type="checkbox" name="answers" value=" (Б) Киевская Русь" id="id_answers_1">
-            (Б) Киевская Русь
-          </label>
-        </div>
-        
-        <div>
-          <label for="id_answers_2"><input type="checkbox" name="answers" value=" (В) Владимирская Русь" id="id_answers_2">
-            (В) Владимирская Русь
-          </label>
-        </div>
-      </div>
-
-    {% comment %} </div> {% endcomment %}
-
-      <div class="formErrors"></div>
-
-      <p>
-        <input class="btn btn-secondary" type="submit" value="Ответить">
-      </p>
-    </form>
-
-
-
       <div class="col-md-6 offset-md-5">
         <a class="btn btn-secondary"
           href="{% url 'quizes:correct_answers' quiz_id=quiz.id question_id=question.id %}"
           role="button">Получить ответы</a>
       </div>
 
-      <script>
-        $(document).load(function () {
-          let answers = {{ request.session.answers|safe }};
-          alert( answers );
-          $( document ).ready()
-
-          $('#id_answers_0').prop('checked', true);
-          $( ":checkbox" ).prop('checked', true);
-
-          for ( var i = 0, l = answers.length; i < l; i++ ) {
-            $("label[value=' (А) Новгородская Русь']").prop('checked', true);
-          }
-        });
-
-
-        {% comment %} let answers = {{ request.session.answers|safe }}; {% endcomment %}
-        {% comment %} alert( answers ); {% endcomment %}
-        {% comment %} $( document ).ready() {% endcomment %}
-
-        {% comment %} $('#id_answers_0').prop('checked', true); {% endcomment %}
-        {% comment %} $( ":checkbox" ).prop('checked', true); {% endcomment %}
-
-        {% comment %} $("label").prop('checked', false); {% endcomment %}
-        {% comment %} $("[id^=id_answers_]").prop('checked', false); {% endcomment %}
-        {% comment %} $('body input:checkbox').prop('checked', true); {% endcomment %}
-
-        {% comment %} for ( var i = 0, l = answers.length; i < l; i++ ) {
-          $("label[value=' (А) Новгородская Русь']").prop('checked', true);
-        } {% endcomment %}
-      </script>
-
       {% if request.session.answers %}
-        {% for answer in request.session.answers %}
-          {{ answer }}
-        {% endfor %}
+        <script>
+          let answers = {{ request.session.answers|safe }};
+        </script>
+        <script src="{% static 'js/fill_answers.js' %}">
+        </script>
       {% endif %}
 
     </div>
