@@ -13,10 +13,6 @@ urlpatterns = [
         views.quiz_question, name='quiz_question',
     ),
     path(
-        'answers/<int:quiz_id>/<int:question_id>',
-        views.get_correct_answers, name='correct_answers',
-    ),
-    path(
         '<int:quiz_id>/results/',
         views.quiz_results, name='quiz_results',
     ),

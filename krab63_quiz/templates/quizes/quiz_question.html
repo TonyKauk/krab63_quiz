@@ -30,17 +30,16 @@
 
       <div class="col-md-6 offset-md-5">
         <a class="btn btn-secondary"
-          href="{% url 'quizes:correct_answers' quiz_id=quiz.id question_id=question.id %}"
-          role="button">Получить ответы</a>
+          href=""
+          role="button"
+          id="get_answers">Получить ответы</a>
       </div>
 
-      {% if request.session.answers %}
-        <script>
-          let answers = {{ request.session.answers|safe }};
-        </script>
-        <script src="{% static 'js/fill_answers.js' %}">
-        </script>
-      {% endif %}
+      <script>
+        let url = "{% url 'api:correct_answers' question_id=question.id %}"
+      </script>
+      <script src="{% static 'js/fill_answers_ajax.js' %}">
+      </script>
 
     </div>
   </div>

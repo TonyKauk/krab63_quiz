@@ -77,8 +77,6 @@ def quiz_question(request, quiz_id, question_id):
             context['question_result_form'] = question_result_form
             return render(request, template, context)
 
-        if 'answers' in request.session:
-            del request.session['answers']
         next_question = Question.objects.filter(id__gt=question_id).first()
         if next_question is None:
             quiz_result.is_finished = True
@@ -94,29 +92,6 @@ def quiz_question(request, quiz_id, question_id):
     question_result_form = QuestionResultForm(instance=question_result)
     context['question_result_form'] = question_result_form
     return render(request, template, context)
-
-
-@login_required
-def get_correct_answers(request, quiz_id, question_id):
-    """Функция для запроса ответов на вопрос у внешнего API и вызова страницы
-    с вопросом с проставленными ответами.
-    """
-    url = reverse(
-        'api:correct_answers', kwargs={'question_id': question_id},
-    )
-    uri = request.build_absolute_uri(url)
-    api_response = requests.get(uri)
-
-    answers = []
-    for answer_json in api_response.json():
-        answer = answer_json['text']
-        answers.append(answer)
-
-    request.session['answers'] = answers
-    return redirect(
-        'quizes:quiz_question', quiz_id=quiz_id,
-        question_id=question_id,
-    )
 
 
 @login_required
